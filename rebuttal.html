@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>法律投诉回应 | Legal Complaint Response — Innora AI Security Research</title>
+<meta name="description" content="Response to complaint #428526665: An article that never mentions 'Alipay' cannot constitute 'reputation infringement'. Full legal and technical rebuttal.">
+<meta name="author" content="Innora AI Security Research">
+<meta property="og:title" content="支付宝安全研究遭律师函投诉 — 一篇零次提及'支付宝'的文章如何构成'商誉侵权'？">
+<meta property="og:description" content="投诉单号428526665。文章全文零次出现'支付宝''Alipay''蚂蚁集团'。308条日志、3台设备、42张截图。完整法律与技术反驳。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://innora.ai/zfb/rebuttal.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface2: #1a1a28;
+  --border: #2a2a3a;
+  --text: #e0e0e8;
+  --text2: #9898a8;
+  --accent: #ff4444;
+  --accent2: #ff6b35;
+  --blue: #4488ff;
+  --green: #44cc88;
+  --max-w: 780px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 16px;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  padding: 60px 24px 40px;
+  text-align: center;
+  background: linear-gradient(180deg, #1a0a0a 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.hero-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(255,68,68,.15);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #ff4444, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .meta {
+  font-size: 14px;
+  color: var(--text2);
+}
+
+/* Sections */
+section.content-section {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+}
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+}
+h3 { font-size: 18px; font-weight: 600; margin: 20px 0 12px; color: var(--text); }
+p { margin-bottom: 14px; color: var(--text2); }
+p strong { color: var(--text); }
+
+/* Info box */
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 16px 0;
+}
+.info-box.alert {
+  border-left: 4px solid var(--accent);
+  background: rgba(255,68,68,.06);
+}
+.info-box.evidence {
+  border-left: 4px solid var(--green);
+  background: rgba(68,204,136,.06);
+}
+
+/* Claim rebuttal */
+.claim-box {
+  background: rgba(255,68,68,.06);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 8px 8px 0;
+}
+.claim-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+
+/* Timeline */
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-date { color: var(--accent); font-weight: 600; min-width: 120px; font-size: 14px; flex-shrink: 0; }
+.timeline-text { color: var(--text2); }
+
+/* Stats */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.stat-item {
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+.stat-num { font-size: 32px; font-weight: 800; color: var(--accent); }
+.stat-label { font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; }
+
+code {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 13px;
+  background: var(--surface2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent2);
+}
+
+/* Resolution list */
+.resolution-list {
+  list-style: none;
+  counter-reset: res;
+}
+.resolution-list li {
+  counter-increment: res;
+  padding: 12px 0 12px 40px;
+  position: relative;
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+}
+.resolution-list li:last-child { border-bottom: none; }
+.resolution-list li::before {
+  content: counter(res);
+  position: absolute;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Back link */
+.back-link {
+  display: inline-block;
+  padding: 8px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  margin: 24px 0;
+}
+.back-link:hover { background: var(--surface2); text-decoration: none; }
+
+/* Footer */
+footer {
+  padding: 32px 24px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text2);
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">LEGAL RESPONSE</div>
+  <h1>支付宝安全研究遭律师函投诉<br>一篇零次提及"支付宝"的文章<br>如何构成"商誉侵权"？</h1>
+  <p class="meta">Innora AI Security Research | 2026-03-12 | 投诉单号 #428526665</p>
+</div>
+
+<div class="container">
+
+<!-- 导语 -->
+<section class="content-section">
+  <p>2026年3月11日 18:16，我们在微信公众号发布了一篇移动支付应用的 DeepLink 攻击面技术分析文章。</p>
+  <p>同日 22:45 —— 发布仅 <strong style="color:var(--accent);">4小时29分钟</strong> 后 —— 北京格韵律师事务所代理提交了侵权投诉。</p>
+
+  <div class="info-box alert">
+    <p style="margin:4px 0;"><strong>投诉单号：</strong>428526665</p>
+    <p style="margin:4px 0;"><strong>投诉时间：</strong>2026-03-11 22:45:59</p>
+    <p style="margin:4px 0;"><strong>投诉方：</strong>北京格韵律师事务所（31110000MD0196493T）</p>
+    <p style="margin:4px 0;"><strong>投诉分类：</strong>内容侵犯名誉/商誉/隐私/肖像</p>
+    <p style="margin:4px 0;"><strong>投诉依据：</strong>《微信公众平台运营规范》4.1.2条</p>
+  </div>
+
+  <p>我们认为该投诉不成立。以下是基于事实和法律的完整回应。</p>
+</section>
+
+<!-- 一 -->
+<section class="content-section">
+  <h2>一、事实基础：文章全文零次提及"支付宝"</h2>
+
+  <p>我们对被投诉文章进行了全文关键词检索：</p>
+
+  <div class="stat-grid">
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">"支付宝"</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">"Alipay"</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">"蚂蚁集团"</div>
+    </div>
+  </div>
+
+  <p>全文使用"国民支付应用""某头部支付平台""支付App"等通用表述。</p>
+
+  <p>根据<strong>《民法典》第 1024 条</strong>，名誉权侵权需满足"针对特定主体"的构成要件。一篇未指名任何企业的技术分析文章，从逻辑起点上就不具备商誉侵权的构成基础。</p>
+
+  <p>值得注意的是：<strong>投诉方通过主动提起投诉，反而自行确认了文章内容与其委托人的关联性。</strong></p>
+</section>
+
+<!-- 二 -->
+<section class="content-section">
+  <h2>二、内容属实：308 条日志、3 台设备、42 张截图</h2>
+
+  <p>根据<strong>《民法典》第 1025 条</strong>，行为人为公共利益实施舆论监督，影响他人名誉的，不承担民事责任——前提是<strong>内容属实且未超出合理限度</strong>。</p>
+
+  <div class="info-box evidence">
+    <p style="margin:6px 0;"><strong>测试设备</strong>：Samsung S25 Ultra（新西兰）、Redmi 12（马来西亚）、iPhone 16 Pro（中国杭州）</p>
+    <p style="margin:6px 0;"><strong>数据日志</strong>：308 条完整服务器回传记录，含 GPS 坐标、设备信息、时间戳</p>
+    <p style="margin:6px 0;"><strong>可视证据</strong>：42 张真机截图，完整记录每一步操作</p>
+    <p style="margin:6px 0;"><strong>独立验证</strong>：在线 PoC 页面（只读、不收集数据），任何安全研究人员可复现</p>
+  </div>
+
+  <p>根据国际通用漏洞评分体系 CVSS 3.1，<code>User Interaction: Required</code> 是一项标准评分指标——需要用户交互的安全问题（如 XSS、CSRF、Clickjacking）在全球范围内均被认定为有效安全发现。我们的研究发现符合 CWE-939（Improper Authorization in Handler for Custom URL Scheme）和 CWE-749（Exposed Dangerous Method or Function）等国际分类标准。</p>
+
+  <p>如果投诉方认为数据不实，我们欢迎通过第三方技术鉴定机构进行验证。</p>
+</section>
+
+<!-- 三 -->
+<section class="content-section">
+  <h2>三、逐条回应：投诉方三项"不实信息"主张</h2>
+
+  <div class="claim-box">
+    <div class="claim-label">投诉方主张一："点击链接无弹窗提示"是不实的</div>
+    <p style="color:var(--text2);margin-bottom:8px;">投诉方称应用具备 URL 风险检测机制，跳转第三方页面必须经过安全检测。</p>
+    <p style="color:var(--text);margin:0;"><strong>事实</strong>：我们描述的是 JSBridge API 调用环节——当外部网页已在 App 内置 WebView 中加载后，调用 getLocation、startApp 等敏感 API 时不会弹出任何二次确认对话框。初始跳转时确实存在一个"继续访问"提示，但该提示<strong>未告知用户外部页面将获得调用内部 API 的能力</strong>。这是两个不同层面的问题。</p>
+  </div>
+
+  <div class="claim-box">
+    <div class="claim-label">投诉方主张二："摄像头权限被拿走"是不实的</div>
+    <p style="color:var(--text2);margin-bottom:8px;">投诉方称摄像头权限需要用户授权同意。</p>
+    <p style="color:var(--text);margin:0;"><strong>事实</strong>：我们的原文第④条描述的是通过 getSystemInfo API 读取"摄像头/麦克风<strong>授权状态</strong>"——即 <code>cameraAuthorized: true/false</code> 这一布尔值。获取的是"用户是否已授权摄像头"的状态信息，<strong>不是获取摄像头权限本身，更不是控制摄像头</strong>。投诉方将"读取权限状态"偷换为"获取摄像头权限"，属于对原文的歪曲。</p>
+  </div>
+
+  <div class="claim-box">
+    <div class="claim-label">投诉方主张三："实时位置信息窃取"是不实的</div>
+    <p style="color:var(--text2);margin-bottom:8px;">投诉方称调用位置权限均以弹窗形式告知用户并获得授权同意。</p>
+    <p style="color:var(--text);margin:0;"><strong>事实</strong>：我们的原文明确标注了前提条件——"用户<strong>曾给 App 授过定位权限</strong>就会中招"。文章末尾"重要澄清"部分再次强调："位置获取<strong>依赖用户此前已授予 App 的定位权限</strong>"。我们的实测证明：在上述前提条件下，外部页面调用 getLocation 时不会弹出任何二次确认弹窗。GPS 坐标被直接返回并可通过 XHR 发送至外部服务器。这有 3 台设备的测试记录和 308 条服务器日志为证。</p>
+  </div>
+
+  <p>三项主张均建立在对原文的断章取义之上。投诉方选择性忽略了文章中的限定条件、技术上下文和免责声明。</p>
+</section>
+
+<!-- 四 -->
+<section class="content-section">
+  <h2>四、厂商安全团队亲自验证：GPS 数据无弹窗直接回传</h2>
+
+  <p>在私下报告阶段，厂商安全团队指派了一位<strong>安全业务负责人</strong>与我们对接，协同验证漏洞的真实性。</p>
+
+  <div class="info-box alert">
+    <h3 style="color:var(--accent);margin-top:0;">验证结果</h3>
+    <p>该安全业务负责人使用自有 iPhone 16 Pro（iOS 26.3.1）在<strong>中国杭州</strong>进行测试。测试过程中：</p>
+    <p style="margin:4px 0;">1. 点击测试链接后，<strong>页面加载到 GPS 数据回传仅历时约 7 秒</strong></p>
+    <p style="margin:4px 0;">2. <strong>全程未弹出任何 GPS 授权声明或提示</strong>（iPhone 未出现任何系统级或应用级弹窗）</p>
+    <p style="margin:4px 0;">3. 共进行 3 轮测试，GPS 精度逐轮提升：<strong>17.4m → 8.8m</strong>，均返回 <code>locationReducedAccuracy: 0</code>（精确定位模式）</p>
+    <p style="margin:4px 0;">4. 我们的服务器日志完整记录了此次数据回传，坐标指向杭州市区</p>
+    <p style="margin:4px 0;">5. 这次验证<strong>首次揭示了 iOS 攻击面显著大于 Android</strong> 这一此前未知的事实</p>
+  </div>
+
+  <p>这意味着：<strong>投诉方声称的"调用位置权限均以弹窗形式告知用户"，被厂商自己的安全团队验证人员的实测所推翻。</strong></p>
+
+  <p>更重要的是，这次协同验证还揭示了一个此前未知的事实：<strong style="color:var(--accent);">iOS 版本的攻击面显著大于 Android 版本</strong>。</p>
+
+  <div class="info-box">
+    <h3 style="margin-top:0;">iOS 额外暴露的 5 个敏感 API（Android 均被拦截）</h3>
+    <table>
+      <thead>
+        <tr><th>API</th><th>Android</th><th>iOS</th><th>风险</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>tradePay</code></td><td style="color:var(--green);">已拦截</td><td style="color:var(--accent);">可用</td><td>触发支付 SDK，弹出收银台</td></tr>
+        <tr><td><code>share</code></td><td style="color:var(--green);">已拦截</td><td style="color:var(--accent);">可用</td><td><strong>蠕虫传播</strong> — 分享至微信/QQ/钉钉</td></tr>
+        <tr><td><code>getLocation</code></td><td style="color:var(--green);">需 checkJSAPI</td><td style="color:var(--accent);">直接返回</td><td>无二次确认获取 GPS</td></tr>
+        <tr><td><code>scan</code></td><td style="color:var(--green);">已拦截</td><td style="color:var(--accent);">可用</td><td>调用摄像头扫码</td></tr>
+        <tr><td><code>chooseImage</code></td><td style="color:var(--green);">已拦截</td><td style="color:var(--accent);">可用</td><td>访问用户相册</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>厂商安全团队在知悉上述全部事实后，仍然给出了"正常功能"的定性。当企业明知风险存在而选择不修复，再通过法律手段阻止公众知情——这一系列行为的逻辑值得公众审视。</p>
+</section>
+
+<!-- 五 -->
+<section class="content-section">
+  <h2>五、逻辑矛盾："正常功能"与"商誉侵权"不可能同时成立</h2>
+
+  <div class="info-box">
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-10</div>
+      <div class="timeline-text"><strong>厂商安全团队回复</strong>："根据我们的评估，这些属于正常功能"</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-11 ~18:03</div>
+      <div class="timeline-text"><strong>微信对话</strong>（截图泰国时间17:03+1h）：厂商对接人确认"正常功能"，我方告知将公开讨论（详见第六节）</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-11 18:16</div>
+      <div class="timeline-text"><strong>我们发布技术分析文章</strong>，讨论上述"正常功能"的安全影响</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-11 22:45</div>
+      <div class="timeline-text"><strong>律师事务所投诉</strong>："商誉侵权"</div>
+    </div>
+  </div>
+
+  <p>从"正常功能"到"商誉侵权"，间隔不到 48 小时。这两个立场在逻辑上互斥：</p>
+
+  <p><strong>若确为正常功能</strong> — 讨论一款应用的公开功能属于正当技术交流，正如讨论汽车的制动系统设计不构成对车企的商誉侵权。</p>
+
+  <p><strong>若并非正常功能</strong> — 那么厂商的"正常功能"回复本身就构成对问题的回避。而研究者在合理等待期后公开讨论未修复的安全隐患，属于行使公众知情权。</p>
+
+  <p><strong>若讨论这些功能会损害商誉</strong> — 恰恰说明厂商自身也认识到这些功能设计存在不足。真正影响商誉的不是安全研究文章，而是问题本身。</p>
+</section>
+
+<!-- 六：微信聊天记录 -->
+<section class="content-section">
+  <h2>六、微信聊天记录：发布前的关键对话</h2>
+
+  <p>以下是 2026年3月11日，我们与厂商安全团队对接人的微信聊天记录（完整截图已保存为证据）。<em style="color:var(--text2);font-size:14px;">注：截图时间显示为泰国时区（UTC+7），对应中国时间需加1小时。</em></p>
+
+  <div class="info-box" style="font-size:14px;line-height:2;">
+    <p style="margin:4px 0;"><strong style="color:var(--green);">17:03 我方：</strong>"漏洞的 就是 zfb的正常功能，这是 最后官方解释了吧？"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--blue);">厂商对接人：</strong>"嗯"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"好的 那我拿素材写小说了"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--blue);">厂商对接人：</strong>"咋还写"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"不是漏洞 还不能说？"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"你看：能造成危害，然后你们说正常功能 我也没说一定是漏洞。。"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"总不能发声权利都没有吧"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"我还是继续写小说去了"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--blue);">厂商对接人：</strong>"卧槽"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--blue);">厂商对接人：</strong>"你这话说的，我这几天可是一直在跟进沟通，不能结果不符你意就还发吧？"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"我有点后悔和你们打交道了"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--blue);">厂商对接人：</strong>"第一次报公司这边没及时处理确实有问题，这次你报个洞我们按照流程确认处置，你还不满意啊？"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--blue);">厂商对接人：</strong>"你想怎么着，你说下你诉求"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">17:30 我方：</strong>"满意啊"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"都不是漏洞了 我公开说一下 总能说的吧？"</p>
+    <p style="margin:4px 0;"><strong style="color:var(--green);">我方：</strong>"你也不能太强权的 不是漏洞 还不让我说？"</p>
+  </div>
+
+  <p>这段对话揭示了以下关键事实：</p>
+
+  <div class="claim-box">
+    <div class="claim-label">关键证据分析</div>
+    <p style="color:var(--text);margin-bottom:10px;"><strong>1. 厂商对接人亲口确认了"正常功能"定性。</strong>对方回复"嗯"确认。</p>
+    <p style="color:var(--text);margin-bottom:10px;"><strong>2. 厂商对接人承认第一次报告处理有问题。</strong>"第一次报公司这边没及时处理确实有问题"——指2月25日的 TLS/SSL 报告。</p>
+    <p style="color:var(--text);margin-bottom:10px;"><strong>3. 对接人在对话中使用了"洞"这一表述。</strong>"这次你报个<strong style="color:var(--accent);">洞</strong>我们按照流程确认处置"——虽然这只是私下非正式用词，不代表厂商官方定性，但至少说明安全团队内部对这些发现的安全属性<strong>并非毫无认知</strong>。</p>
+    <p style="color:var(--text);margin-bottom:10px;"><strong>4. 我方在文章发布前已告知厂商。</strong>截图泰国时间17:03（北京时间约18:03），文章 18:16 发布。厂商对接人在得知我方意图后未提出正式暂缓请求。</p>
+    <p style="color:var(--text);margin:0;"><strong>5. 我方立场逻辑清晰。</strong>"不是漏洞 还不能说？""你也不能太强权的 不是漏洞 还不让我说？"——既然定性"正常功能"，公开讨论就不构成不当行为。</p>
+  </div>
+</section>
+
+<!-- 七 -->
+<section class="content-section">
+  <h2>七、程序合规：完整的负责任披露流程</h2>
+
+  <p>我们严格遵循国际安全社区通行的负责任披露准则（参考 ISO/IEC 29147:2018）。以下时间线的每一步均有邮件记录和服务器日志可查证：</p>
+
+  <div class="info-box">
+    <div class="timeline-item">
+      <div class="timeline-date">2026-02-25</div>
+      <div class="timeline-text">首次私下报告：<strong>TLS/SSL 中间人攻击 + 设备指纹问题</strong>，发送至厂商官方安全响应中心（3个收件地址）<br><span style="color:var(--text2);font-size:13px;">注：此次报告的是 TLS/SSL 相关问题，DeepLink/JSBridge 攻击链尚未发现</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-06</div>
+      <div class="timeline-text">AntSRC 回复首次报告：<strong>"经过我们安全工程师审核，无法被实际利用"</strong></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-07 04:08</div>
+      <div class="timeline-text">第二次报告：发现 DeepLink+JSBridge 攻击链，提交 8 个漏洞（2 CRITICAL + 4 HIGH）</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-07 06:07</div>
+      <div class="timeline-text">第三次报告（V3）：深度验证后扩展至 <strong>17 个漏洞</strong>，含资金操作风险，附 308 条服务器日志 + 42 张截图</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-07 07:54</div>
+      <div class="timeline-text">第四次报告：端到端外部攻击完整演示，3 台设备跨国验证（新西兰/马来西亚/中国），含在线复现链接</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-07 12:33</div>
+      <div class="timeline-text">厂商安全团队对接人回复：<strong>"漏洞报告邮件已收到，我们会安排人尽快分析，完了给你回复"</strong></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-08</div>
+      <div class="timeline-text">厂商安排安全业务负责人协同验证（iPhone 16 Pro，杭州），GPS 数据无弹窗回传</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-09</div>
+      <div class="timeline-text">研究者测试账户因触发风控被封锁，向厂商发送解封申请</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-10</div>
+      <div class="timeline-text">厂商最终回复：<strong>"根据我们的评估，这些属于正常功能"</strong></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-11 ~18:03</div>
+      <div class="timeline-text">微信对话（截图泰国时间17:03+1h）：厂商对接人确认"正常功能"定性，我方告知将公开讨论</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026-03-11 18:16</div>
+      <div class="timeline-text">公开研究成果</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date" style="color:var(--accent);">2026-03-11 22:45</div>
+      <div class="timeline-text" style="color:var(--text);"><strong>文章发布仅 4 小时 29 分钟后，北京格韵律师事务所提交侵权投诉</strong></div>
+    </div>
+  </div>
+
+  <p>以上时间线中，<strong>每一封邮件均保存在我们的邮件服务器</strong>（加密存储），厂商方回复同样有完整记录。</p>
+
+  <p>在一天之内（3月7日），我们连续提交了 3 份递进式报告（8个→17个漏洞→端到端攻击演示），每份都附带更完整的证据。厂商在安排人员亲自验证并确认漏洞可复现后，仍给出"正常功能"的定性。Google Project Zero 的行业标准是给予厂商 90 天。我们从 DeepLink 漏洞报告到公开等待了 4 天，在此期间厂商已明确回复不予修复。</p>
+</section>
+
+<!-- 六 -->
+<section class="content-section">
+  <h2>八、公共利益：10 亿用户的知情权</h2>
+
+  <p><strong>《消费者权益保护法》第八条</strong>规定：消费者享有知悉其购买、使用的商品或者接受的服务的真实情况的权利。</p>
+
+  <p>当一款日活超过 10 亿的支付应用存在可被外部链接利用的攻击面时，用户有权知道：点击一条链接后，他们的设备信息、位置数据可能被以何种方式获取，他们看到的界面是否可能被伪造。</p>
+
+  <p>安全研究的价值不在于"攻击"，而在于"预警"。我们在文章中同时提供了 5 项具体的安全加固建议，这是建设性技术讨论，不是恶意抹黑。</p>
+</section>
+
+<!-- 七 -->
+<section class="content-section">
+  <h2>九、我们的立场</h2>
+
+  <p>Innora AI 是独立安全研究机构。我们与投诉方不存在任何商业竞争关系，不从事支付业务，不代表任何竞品利益。</p>
+
+  <p>我们的研究基于可复现的技术实验，结论附有完整证据链。文章中每一处涉及攻击条件的描述都标注了前提限定，每一处涉及资金操作的描述都注明了"仍需用户确认"。</p>
+
+  <p>如果投诉方对技术事实有异议，我们愿意通过以下方式解决：</p>
+
+  <ul class="resolution-list">
+    <li>接受第三方技术鉴定机构对 308 条日志的真实性验证</li>
+    <li>在中立技术专家见证下复现全部测试</li>
+    <li>如经验证存在不实内容，我们将立即更正并公开致歉</li>
+  </ul>
+
+  <p style="margin-top:20px;">但我们不会因为一封律师函就撤回基于事实的技术研究。用法律手段消除技术事实，从来不是解决安全问题的正确方式。</p>
+</section>
+
+<!-- 链接 -->
+<section class="content-section" style="text-align:center;">
+  <a href="https://innora.ai/zfb/" class="back-link">← 返回完整技术报告</a>
+  <p style="font-size:14px;margin-top:16px;">联系我们：<strong>feng@innora.ai</strong></p>
+</section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p><strong>法律声明</strong>：本文所有陈述均基于可验证的技术实验结果。研究遵循 ISO/IEC 29147:2018 负责任披露标准。根据《民法典》第1025条，为公共利益实施的舆论监督，内容属实且未超出合理限度的，不承担民事责任。</p>
+  <p style="margin-top:12px;">&copy; 2026 Innora AI Security Research | <a href="https://innora.ai">innora.ai</a> | 最后更新: 2026-03-12</p>
+</footer>
+
+</body>
+</html>
