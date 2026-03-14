@@ -721,6 +721,12 @@ body.lang-en .en { display: block; }
     <li><a href="#recommendations">
       <span class="zh">修复建议</span><span class="en">Remediation Recommendations</span>
     </a></li>
+    <li><a href="#user-defense">
+      <span class="zh">用户自我保护</span><span class="en">User Self-Protection</span>
+    </a></li>
+    <li><a href="#community-faq">
+      <span class="zh">社区质疑回应</span><span class="en">Community Questions & Responses</span>
+    </a></li>
     <li><a href="#global-response">
       <span class="zh">全球监管机构响应</span><span class="en">Global Regulatory Response</span>
     </a></li>
@@ -2089,6 +2095,25 @@ Language/zh-Hant Region/CN</code></pre>
     </div>
     <p style="margin-top:16px; color: var(--text2); font-size: 13px;"><em>Note: To protect ongoing investigations, certain case reference numbers and contact emails have been redacted. This table will be updated as investigations progress.</em></p>
   </div>
+
+  <!-- ITIF Independent Corroboration -->
+  <div class="callout" style="border-color: var(--blue); background: rgba(68,136,255,.06); margin-top:20px;">
+    <h3 style="color:var(--blue);margin:0 0 10px 0;">
+      <span class="zh">独立佐证：美国顶级科技政策智库的平行评估</span>
+      <span class="en">Independent Corroboration: Parallel Assessment by Top US Tech Policy Think Tank</span>
+    </h3>
+    <div class="zh">
+      <p>2026年3月6日——<strong>早于我们公开披露5天</strong>——<a href="https://itif.org/publications/2026/03/06/alipay-presents-real-risks-but-dont-rush-to-ban-it/" target="_blank">美国信息技术与创新基金会 (ITIF)</a> 发表文章 <em>"Alipay Presents Real Risks — But Don't Rush to Ban It"</em>。</p>
+      <p>ITIF 被宾夕法尼亚大学评为<strong>全球最权威的科技政策智库</strong>。文章独立指出支付宝收集"购买记录、设备位置、身份证件、健康数据和生物特征标记"，并呼吁 FTC 和 CFPB 对支付宝进行数据审计。文章还引用中国《国家情报法》第7条，指出中国政府可合法要求企业提交所收集的数据。</p>
+      <p>这一完全独立的评估与我们的技术发现高度一致：<strong>当白名单绕过允许任意攻击者获取支付宝用户的GPS和设备信息时，数据主权风险被进一步放大</strong>。</p>
+    </div>
+    <div class="en">
+      <p>On March 6, 2026 — <strong>5 days before our public disclosure</strong> — the <a href="https://itif.org/publications/2026/03/06/alipay-presents-real-risks-but-dont-rush-to-ban-it/" target="_blank">Information Technology & Innovation Foundation (ITIF)</a> published <em>"Alipay Presents Real Risks — But Don't Rush to Ban It."</em></p>
+      <p>ITIF is ranked by the University of Pennsylvania as the <strong>world's most authoritative science and technology policy think tank</strong>. The article independently identifies Alipay as collecting "purchase histories, device locations, government IDs, health data, and biometric markers," and calls for FTC and CFPB audits. It cites China's National Intelligence Law Article 7, noting the government can legally compel companies to share collected data.</p>
+      <p>This entirely independent assessment is highly consistent with our technical findings: <strong>when a whitelist bypass allows arbitrary attackers to obtain users' GPS and device information, data sovereignty risks are amplified further</strong>.</p>
+    </div>
+  </div>
+
 </section>
 
 <!-- ==================== 10. RECOMMENDATIONS ==================== -->
@@ -2188,6 +2213,277 @@ Language/zh-Hant Region/CN</code></pre>
       <td>V-05, V-15~V-17</td>
     </tr>
   </table>
+</section>
+
+
+
+<!-- ==================== USER DEFENSE GUIDE ==================== -->
+<section id="user-defense">
+  <h2><span class="num">🛡️</span>
+    <span class="zh">用户自我保护指南</span>
+    <span class="en">User Self-Protection Guide</span>
+  </h2>
+
+  <div class="zh">
+    <p>在厂商修复这些问题之前，普通用户可以采取以下措施降低风险：</p>
+  </div>
+  <div class="en">
+    <p>Until the vendor addresses these issues, ordinary users can take the following steps to reduce risk:</p>
+  </div>
+
+  <table>
+    <tr>
+      <th>#</th>
+      <th><span class="zh">措施</span><span class="en">Measure</span></th>
+      <th><span class="zh">说明</span><span class="en">Description</span></th>
+      <th><span class="zh">防护范围</span><span class="en">Coverage</span></th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><span class="zh"><strong>不点击陌生链接</strong></span><span class="en"><strong>Don't click unknown links</strong></span></td>
+      <td><span class="zh">收到含 <code>ds.alipay.com</code> 或 <code>alipays://</code> 的链接时保持警惕，尤其是来自群聊、短信、邮件的链接</span><span class="en">Be cautious with links containing <code>ds.alipay.com</code> or <code>alipays://</code>, especially from group chats, SMS, or emails</span></td>
+      <td><span class="zh">全部漏洞</span><span class="en">All vulnerabilities</span></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><span class="zh"><strong>关闭定位权限</strong></span><span class="en"><strong>Disable location permission</strong></span></td>
+      <td><span class="zh">在系统设置中将支付宝的定位权限改为"仅在使用时允许"或"关闭"，需要时临时开启</span><span class="en">In system settings, change Alipay's location permission to "While Using" or "Off"; enable temporarily when needed</span></td>
+      <td><span class="zh">GPS 静默外泄</span><span class="en">Silent GPS exfiltration</span></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><span class="zh"><strong>验证转账信息</strong></span><span class="en"><strong>Verify transfer details</strong></span></td>
+      <td><span class="zh">任何弹出的转账/付款页面，务必仔细核对收款方信息，不要因为页面看起来"正常"就直接确认</span><span class="en">For any transfer/payment page that appears, carefully verify recipient information — don't confirm just because the page "looks normal"</span></td>
+      <td><span class="zh">转账预填攻击</span><span class="en">Transfer pre-fill attack</span></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><span class="zh"><strong>关闭小额免密</strong></span><span class="en"><strong>Disable small-amount password-free payments</strong></span></td>
+      <td><span class="zh">设置 → 支付设置 → 免密支付 → 关闭小额免密。确保每笔支付都需要密码/指纹确认</span><span class="en">Settings → Payment Settings → Password-free Payment → Disable. Ensure every payment requires password/biometric confirmation</span></td>
+      <td><span class="zh">支付接口调用</span><span class="en">Payment interface invocation</span></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><span class="zh"><strong>保持应用更新</strong></span><span class="en"><strong>Keep app updated</strong></span></td>
+      <td><span class="zh">如果厂商悄悄修复了部分问题（有社区反馈表明部分接口已变化），更新到最新版可获得保护</span><span class="en">If the vendor silently patches issues (community feedback suggests some APIs have changed), updating to the latest version provides protection</span></td>
+      <td><span class="zh">已修补的接口</span><span class="en">Patched interfaces</span></td>
+    </tr>
+  </table>
+</section>
+
+<!-- ==================== COMMUNITY FAQ ==================== -->
+<section id="community-faq">
+  <h2><span class="num">💬</span>
+    <span class="zh">社区质疑回应</span>
+    <span class="en">Community Questions & Responses</span>
+  </h2>
+
+  <div class="zh">
+    <p>本研究在 <a href="https://github.com/sgInnora/alipay-deeplink-research/issues/4" target="_blank">GitHub</a>、<a href="https://www.v2ex.com/t/1198033" target="_blank">V2EX</a>、<a href="https://linux.do/t/topic/1746089" target="_blank">LINUX DO</a> 等平台引发了专业讨论。我们感谢所有参与技术讨论的安全从业者，并在此逐条回应主要质疑。</p>
+  </div>
+  <div class="en">
+    <p>This research has sparked professional discussions on <a href="https://github.com/sgInnora/alipay-deeplink-research/issues/4" target="_blank">GitHub</a>, <a href="https://www.v2ex.com/t/1198033" target="_blank">V2EX</a>, <a href="https://linux.do/t/topic/1746089" target="_blank">LINUX DO</a> and other platforms. We thank all security professionals who participated in the technical discussion and address the main questions below.</p>
+  </div>
+
+  <!-- Q1: DeepLink是正常设计 -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px 24px;margin:16px 0;">
+    <h3 style="color:#ff8800;margin:0 0 12px 0;">
+      <span class="zh">Q1：「DeepLink / URL Scheme 是正常设计，不算漏洞」</span>
+      <span class="en">Q1: "DeepLink / URL Scheme is normal design, not a vulnerability"</span>
+    </h3>
+    <div class="zh">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">来源：GitHub Issue #4 (sevck), V2EX (Puteulanus)</p>
+      <p><strong style="color:#4ecdc4;">我们同意：</strong>DeepLink 机制本身是移动生态的通用设计。我们从未将「DeepLink 存在」定义为漏洞。</p>
+      <p><strong style="color:#ff4444;">但核心问题是：</strong>支付宝自有域名 <code>ds.alipay.com</code> 的<strong>开放重定向</strong>允许<strong>任何人</strong>通过白名单域名将<strong>任意外部页面</strong>加载到支付宝的特权 WebView 中，获得完整的 JSBridge API 访问权限。这不是「DeepLink 存在」的问题，而是<strong>安全边界被完全突破</strong>。</p>
+      <ul>
+        <li><a href="https://cwe.mitre.org/data/definitions/601.html" target="_blank">CWE-601 (URL重定向到不可信站点)</a> 是 OWASP Top 10 明确认定的漏洞类型</li>
+        <li><a href="https://cwe.mitre.org/data/definitions/939.html" target="_blank">CWE-939 (自定义URL Scheme处理器中的不当授权)</a> 也是标准漏洞分类</li>
+        <li><a href="https://developer.android.com/privacy-and-security/risks/unsafe-use-of-deeplinks" target="_blank">Google Android 安全文档</a>明确将 Deep Link 的不安全使用列为安全风险</li>
+      </ul>
+      <p>类比：门锁是正常设计。但如果任何人可以用一张纸条打开你家门锁，那就是门锁的安全漏洞——不是「门锁这种设计不算漏洞」。</p>
+    </div>
+    <div class="en">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">Source: GitHub Issue #4 (sevck), V2EX (Puteulanus)</p>
+      <p><strong style="color:#4ecdc4;">We agree:</strong> DeepLink is a standard mechanism in the mobile ecosystem. We never defined "the existence of DeepLink" as a vulnerability.</p>
+      <p><strong style="color:#ff4444;">But the core issue is:</strong> Alipay's own domain <code>ds.alipay.com</code> has an <strong>open redirect</strong> that allows <strong>anyone</strong> to load <strong>arbitrary external pages</strong> into Alipay's privileged WebView via the whitelisted domain, gaining full JSBridge API access. This is not about "DeepLink existing" — it is about the <strong>security boundary being completely breached</strong>.</p>
+      <ul>
+        <li><a href="https://cwe.mitre.org/data/definitions/601.html" target="_blank">CWE-601 (URL Redirection to Untrusted Site)</a> is explicitly classified as a vulnerability in OWASP Top 10</li>
+        <li><a href="https://cwe.mitre.org/data/definitions/939.html" target="_blank">CWE-939 (Improper Authorization in Handler for Custom URL Scheme)</a> is a standard vulnerability classification</li>
+        <li><a href="https://developer.android.com/privacy-and-security/risks/unsafe-use-of-deeplinks" target="_blank">Google Android Security docs</a> explicitly list unsafe use of Deep Links as a security risk</li>
+      </ul>
+      <p>Analogy: A door lock is a normal design. But if anyone can open your door lock with a slip of paper, that's a vulnerability in the lock — not "door locks aren't vulnerabilities."</p>
+    </div>
+  </div>
+
+  <!-- Q2: GPS已有权限 -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px 24px;margin:16px 0;">
+    <h3 style="color:#ff8800;margin:0 0 12px 0;">
+      <span class="zh">Q2：「GPS 获取在用户已授权权限的前提下是正常行为」</span>
+      <span class="en">Q2: "GPS access under existing user permissions is normal behavior"</span>
+    </h3>
+    <div class="zh">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">来源：GitHub Issue #4 (sevck, rama291041610)</p>
+      <p><strong>这是一个权限委托 vs 权限滥用的问题。</strong></p>
+      <table style="margin:12px 0;">
+        <tr><th>场景</th><th>用户期望</th><th>实际行为</th></tr>
+        <tr><td>用户授权支付宝使用 GPS</td><td>支付宝自身功能使用</td><td style="color:#4ecdc4;">✅ 正常</td></tr>
+        <tr><td>外部攻击者通过 WebView 获取 GPS</td><td>不在用户预期内</td><td style="color:#ff4444;">❌ 权限滥用</td></tr>
+        <tr><td>标准浏览器请求用户位置</td><td>弹窗请求确认</td><td style="color:#4ecdc4;">✅ W3C 标准行为</td></tr>
+        <tr><td>支付宝 WebView 中外部页面请求位置</td><td>应当弹窗确认</td><td style="color:#ff4444;">❌ 无弹窗，静默获取</td></tr>
+      </table>
+      <p>正如参与讨论的 nailchu 所指出的：<em>「我授权是授给你支付宝的，攻击方想拿就拿算怎么个事儿？就算浏览器也会跳'该网站正在请求位置信息'啊」</em></p>
+      <p>用户把位置权限授予支付宝，是信任<strong>支付宝</strong>——不是信任任何能够加载到支付宝 WebView 中的随机网页。当攻击者的页面可以通过白名单绕过进入 WebView 并静默调用 <code>getLocation</code>，这就是对用户信任的滥用。</p>
+      <p><strong>实测证据</strong>：308 条服务器日志记录了从 3 台真实设备静默获取的 GPS 坐标（8.8m 精度），7 秒内完成，0 次用户交互。GitHub Issue #5 的 freshnn 也独立确认 Android 上「无感 GPS」成功。</p>
+    </div>
+    <div class="en">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">Source: GitHub Issue #4 (sevck, rama291041610)</p>
+      <p><strong>This is a question of permission delegation vs. permission abuse.</strong></p>
+      <table style="margin:12px 0;">
+        <tr><th>Scenario</th><th>User Expectation</th><th>Actual Behavior</th></tr>
+        <tr><td>User grants Alipay GPS permission</td><td>Used by Alipay's own functions</td><td style="color:#4ecdc4;">✅ Normal</td></tr>
+        <tr><td>External attacker accesses GPS via WebView</td><td>Not within user's expectation</td><td style="color:#ff4444;">❌ Permission abuse</td></tr>
+        <tr><td>Standard browser requests location</td><td>Shows confirmation dialog</td><td style="color:#4ecdc4;">✅ W3C standard</td></tr>
+        <tr><td>External page in Alipay WebView requests location</td><td>Should show dialog</td><td style="color:#ff4444;">❌ No dialog, silent access</td></tr>
+      </table>
+      <p>As nailchu pointed out in the discussion: <em>"I authorized Alipay, not any attacker who wants my location. Even browsers show 'This website is requesting your location.'"</em></p>
+      <p>When users grant location permission to Alipay, they trust <strong>Alipay</strong> — not any random webpage that can be loaded into Alipay's WebView. When an attacker's page enters the WebView via whitelist bypass and silently calls <code>getLocation</code>, this is an abuse of user trust.</p>
+      <p><strong>Evidence</strong>: 308 server log entries documenting GPS coordinates silently obtained from 3 real devices (8.8m accuracy), completed in 7 seconds, with 0 user interactions. freshnn on GitHub Issue #5 also independently confirmed "silent GPS" works on Android.</p>
+    </div>
+  </div>
+
+  <!-- Q3: 转账预填需确认 -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px 24px;margin:16px 0;">
+    <h3 style="color:#ff8800;margin:0 0 12px 0;">
+      <span class="zh">Q3：「转账预填需要用户确认，类似 Chrome 表单预填」</span>
+      <span class="en">Q3: "Transfer pre-fill requires user confirmation, similar to Chrome form auto-fill"</span>
+    </h3>
+    <div class="zh">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">来源：GitHub Issue #4 (sevck, rama291041610)</p>
+      <p><strong style="color:#4ecdc4;">我们部分同意：</strong>转账确实需要用户至少 2 次点击 + 密码/生物认证确认，不能自动完成。本报告已在相关章节明确标注此前提条件。</p>
+      <p><strong style="color:#ff8800;">但 Chrome 类比不准确：</strong></p>
+      <ul>
+        <li>Chrome 预填的是<strong>用户自己保存的</strong>表单数据 — 攻击者无法指定预填内容</li>
+        <li>支付宝的预填是<strong>攻击者通过 URL 参数指定</strong>收款账号和金额 — 性质完全不同</li>
+        <li>结合 UI 欺骗能力（<code>setTitle</code>/<code>showToast</code>），攻击者可以伪造合法转账理由，降低用户警惕</li>
+      </ul>
+      <p>参与讨论的 <a href="https://github.com/sgInnora/alipay-deeplink-research/issues/4" target="_blank">cxxsheng</a> 独立编写了 PoC，结论：<em>「还是认为这个功能是漏洞，但是危害性会低一些」</em>。他还引用了 <a href="https://github.com/advisories/GHSA-88q7-6vxh-w5q7" target="_blank">CVE-2024-40676</a>（Android 先例）：减少用户交互步骤本身可以构成漏洞。</p>
+    </div>
+    <div class="en">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">Source: GitHub Issue #4 (sevck, rama291041610)</p>
+      <p><strong style="color:#4ecdc4;">We partially agree:</strong> Transfers indeed require at least 2 clicks + password/biometric confirmation and cannot complete automatically. This precondition is already explicitly stated in the relevant sections of this report.</p>
+      <p><strong style="color:#ff8800;">But the Chrome analogy is inaccurate:</strong></p>
+      <ul>
+        <li>Chrome auto-fills data <strong>previously saved by the user</strong> — attackers cannot specify the pre-filled content</li>
+        <li>Alipay's pre-fill is <strong>specified by the attacker via URL parameters</strong> for recipient account and amount — fundamentally different</li>
+        <li>Combined with UI spoofing (<code>setTitle</code>/<code>showToast</code>), attackers can fabricate legitimate-looking transfer reasons, reducing user vigilance</li>
+      </ul>
+      <p><a href="https://github.com/sgInnora/alipay-deeplink-research/issues/4" target="_blank">cxxsheng</a> independently wrote a PoC and concluded: <em>"I still consider this a vulnerability, but with lower severity."</em> He also cited <a href="https://github.com/advisories/GHSA-88q7-6vxh-w5q7" target="_blank">CVE-2024-40676</a> (Android precedent): reducing user interaction steps itself can constitute a vulnerability.</p>
+    </div>
+  </div>
+
+  <!-- Q4: iOS复现失败 -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px 24px;margin:16px 0;">
+    <h3 style="color:#ff8800;margin:0 0 12px 0;">
+      <span class="zh">Q4：「iOS 上无法复现数据外泄」</span>
+      <span class="en">Q4: "Cannot reproduce data exfiltration on iOS"</span>
+    </h3>
+    <div class="zh">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">来源：GitHub Issue #5 (freshnn)</p>
+      <p>freshnn 报告 iOS 可以调用并打开相关页面，但服务端收不到数据；Android 上「无感 GPS」则复现成功。</p>
+      <p><strong>可能原因：</strong></p>
+      <ul>
+        <li><strong>域名/HTTPS 配置</strong> — iOS WKWebView 对混合内容和 CORS 策略更严格，PoC 服务器需使用有效 HTTPS 证书且设置正确的 CORS 头</li>
+        <li><strong>支付宝版本差异</strong> — 不同版本的 JSBridge 鉴权策略可能不同，建议使用最新版测试</li>
+        <li><strong>CSP（内容安全策略）</strong> — iOS 上可能有更严格的 CSP 头限制外部请求</li>
+      </ul>
+      <p><strong>关键事实：</strong>我们的 iPhone 16 Pro (iOS 18.3) 测试<strong>确实成功</strong>获取了 GPS 数据（记录在服务器日志中），蚂蚁集团安全负责人的 iPhone 在杭州的测试也被我们成功获取了坐标。iOS 复现需要满足特定的服务器配置条件，并非漏洞不存在。</p>
+      <p>我们将在 <a href="https://github.com/sgInnora/alipay-deeplink-research/issues/5" target="_blank">Issue #5</a> 中提供详细的 iOS 复现排查指南。</p>
+    </div>
+    <div class="en">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">Source: GitHub Issue #5 (freshnn)</p>
+      <p>freshnn reported that iOS can invoke and open the relevant pages, but the server receives no data; Android "silent GPS" was successfully reproduced.</p>
+      <p><strong>Possible causes:</strong></p>
+      <ul>
+        <li><strong>Domain/HTTPS configuration</strong> — iOS WKWebView enforces stricter mixed content and CORS policies; PoC server needs valid HTTPS certificate with correct CORS headers</li>
+        <li><strong>Alipay version differences</strong> — Different versions may have different JSBridge authentication policies; test with the latest version</li>
+        <li><strong>CSP (Content Security Policy)</strong> — Stricter CSP headers on iOS may restrict external requests</li>
+      </ul>
+      <p><strong>Key fact:</strong> Our iPhone 16 Pro (iOS 18.3) test <strong>did successfully</strong> obtain GPS data (recorded in server logs). Ant Group's security lead's iPhone in Hangzhou was also successfully captured. iOS reproduction requires specific server configuration — the vulnerability exists, but the PoC setup matters.</p>
+      <p>We will provide a detailed iOS reproduction troubleshooting guide in <a href="https://github.com/sgInnora/alipay-deeplink-research/issues/5" target="_blank">Issue #5</a>.</p>
+    </div>
+  </div>
+
+  <!-- Q5: 支付宝WebView vs 标准浏览器 -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px 24px;margin:16px 0;">
+    <h3 style="color:#ff8800;margin:0 0 12px 0;">
+      <span class="zh">Q5：「这是浏览器通用设计问题，不是支付宝特有问题」</span>
+      <span class="en">Q5: "This is a general browser design issue, not specific to Alipay"</span>
+    </h3>
+    <div class="zh">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">来源：V2EX (Puteulanus)</p>
+      <p><strong>支付宝 WebView ≠ 标准浏览器。</strong>关键区别：</p>
+      <table style="margin:12px 0;">
+        <tr><th>能力</th><th>标准浏览器</th><th>支付宝 WebView (Nebula)</th></tr>
+        <tr><td>位置请求</td><td style="color:#4ecdc4;">弹窗确认</td><td style="color:#ff4444;">静默获取</td></tr>
+        <tr><td>支付接口</td><td style="color:#4ecdc4;">无</td><td style="color:#ff4444;">tradePay 可调用</td></tr>
+        <tr><td>内部页面导航</td><td style="color:#4ecdc4;">无</td><td style="color:#ff4444;">startApp 可跳转敏感页面</td></tr>
+        <tr><td>设备指纹</td><td>标准 User-Agent</td><td style="color:#ff4444;">IMEI/品牌/型号/运营商</td></tr>
+        <tr><td>UI 控制</td><td style="color:#4ecdc4;">受限</td><td style="color:#ff4444;">setTitle/showToast 可伪造</td></tr>
+      </table>
+      <p>白名单的存在本身就证明支付宝<strong>自己认为</strong>需要限制哪些页面可以访问这些特权 API。绕过白名单 = 绕过<strong>支付宝自己设定的安全边界</strong>。</p>
+    </div>
+    <div class="en">
+      <p style="color:#9898a8;font-style:italic;margin:0 0 12px 0;">Source: V2EX (Puteulanus)</p>
+      <p><strong>Alipay WebView ≠ standard browser.</strong> Key differences:</p>
+      <table style="margin:12px 0;">
+        <tr><th>Capability</th><th>Standard Browser</th><th>Alipay WebView (Nebula)</th></tr>
+        <tr><td>Location request</td><td style="color:#4ecdc4;">Confirmation dialog</td><td style="color:#ff4444;">Silent access</td></tr>
+        <tr><td>Payment API</td><td style="color:#4ecdc4;">None</td><td style="color:#ff4444;">tradePay callable</td></tr>
+        <tr><td>Internal navigation</td><td style="color:#4ecdc4;">None</td><td style="color:#ff4444;">startApp navigates to sensitive pages</td></tr>
+        <tr><td>Device fingerprint</td><td>Standard User-Agent</td><td style="color:#ff4444;">IMEI/Brand/Model/Carrier</td></tr>
+        <tr><td>UI control</td><td style="color:#4ecdc4;">Limited</td><td style="color:#ff4444;">setTitle/showToast spoofable</td></tr>
+      </table>
+      <p>The very existence of the whitelist proves that Alipay <strong>itself recognizes</strong> the need to restrict which pages can access these privileged APIs. Bypassing the whitelist = bypassing <strong>Alipay's own security boundary</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Q6: 独立验证背书 -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px 24px;margin:16px 0;">
+    <h3 style="color:#ff8800;margin:0 0 12px 0;">
+      <span class="zh">独立验证与机构背书</span>
+      <span class="en">Independent Verification & Institutional Recognition</span>
+    </h3>
+    <div class="zh">
+      <p>本研究的有效性已获得多个独立第三方的验证：</p>
+      <ul>
+        <li><strong>Packet Storm Security</strong> — 审核通过并发布 <a href="https://packetstormsecurity.com/files/217089" target="_blank">Advisory #217089</a></li>
+        <li><strong>MITRE</strong> — 受理 6 个 CVE 申请 (Ticket #2005801)</li>
+        <li><strong>Apple Product Security</strong> — 主动启动调查 (Case OE01052449093014)</li>
+        <li><strong>Google Play</strong> — 启动政策违规调查 (Case 9-7515000040640)</li>
+        <li><strong>CSSF 卢森堡</strong> — 4 个部门确认收到，ICT Risk Supervision 明确记录</li>
+        <li><strong>PDPC 新加坡</strong> — 启动正式数据保护调查 (#00629724)</li>
+        <li><strong>CIRCL 卢森堡 CERT</strong> — 事件处理人员主动代为联系 Alibaba SRC</li>
+        <li><strong>HKMA 香港金管局</strong> — 立案调查 (Case CE20260313175412)</li>
+        <li><strong>cxxsheng</strong>（GitHub 安全研究者）— 独立编写 PoC 后确认漏洞存在</li>
+        <li><strong>freshnn</strong>（GitHub 用户）— 独立确认 Android 无感 GPS 复现成功</li>
+      </ul>
+    </div>
+    <div class="en">
+      <p>The validity of this research has been verified by multiple independent third parties:</p>
+      <ul>
+        <li><strong>Packet Storm Security</strong> — Reviewed and published <a href="https://packetstormsecurity.com/files/217089" target="_blank">Advisory #217089</a></li>
+        <li><strong>MITRE</strong> — Accepted 6 CVE applications (Ticket #2005801)</li>
+        <li><strong>Apple Product Security</strong> — Proactively launched investigation (Case OE01052449093014)</li>
+        <li><strong>Google Play</strong> — Policy violation investigation (Case 9-7515000040640)</li>
+        <li><strong>CSSF Luxembourg</strong> — 4 departments confirmed receipt, ICT Risk Supervision explicitly noted</li>
+        <li><strong>PDPC Singapore</strong> — Formal data protection investigation (#00629724)</li>
+        <li><strong>CIRCL Luxembourg CERT</strong> — Incident handler proactively contacted Alibaba SRC on our behalf</li>
+        <li><strong>HKMA Hong Kong</strong> — Case filed (CE20260313175412)</li>
+        <li><strong>cxxsheng</strong> (GitHub researcher) — Independently wrote PoC and confirmed vulnerability exists</li>
+        <li><strong>freshnn</strong> (GitHub user) — Independently confirmed silent GPS reproduction on Android</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ==================== LEGAL RESPONSE ==================== -->
